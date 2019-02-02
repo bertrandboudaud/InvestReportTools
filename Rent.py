@@ -1,6 +1,9 @@
-class Rent:
+from SheetOutput import SheetOutput
+
+class Rent(SheetOutput):
 
     def __init__(self, loyerMensuel, chargesMensuel, revalorisationCharges, startAnnee, startMois, taxeFonciere):
+        SheetOutput.__init__(self)
         self._loyerMensuel = loyerMensuel
         self._chargesMensuel = chargesMensuel
         self._revalorisationCharges = revalorisationCharges
@@ -13,6 +16,14 @@ class Rent:
         print "Charges mensuelles: " + str(self._chargesMensuel)
         print "revalorisationCharges (%/an): " + str(self._revalorisationCharges)
         print "Taxe Fonciere: " + str(self._taxeFonciere)
+
+    def sheetPrint(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, self._loyerMensuel)
+        self.writeXLS(sheet, self._chargesMensuel)
+        self.writeXLS(sheet, self._revalorisationCharges)
+        self.writeXLS(sheet, self._taxeFonciere)
+        return self._currentLine;
 
     def loyerBrutMensuel(self, annee, mois):
         # Mensualite

@@ -1,9 +1,11 @@
 import Rent
 import Credit
+from SheetOutput import SheetOutput
 
-class Compte:
+class Compte(SheetOutput):
 
     def __init__(self, capital, interetAnnuel, startAnnee, startMois):
+        SheetOutput.__init__(self)
         self._capital = float(capital)
         self._interetAnnuel = float(interetAnnuel)
         self._startAnnee = startAnnee
@@ -12,6 +14,13 @@ class Compte:
     def debugPrint(self):
         print "Capital de depart: " + str(self._capital)
         print "Interets (%/an): " + str(self._interetAnnuel)
+
+
+    def sheetPrint(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, self._capital)
+        self.writeXLS(sheet, self._interetAnnuel)
+        return self._currentLine;
 
     # capital a la fin du mois
     def capitalMensuel(self, annee, mois, rent, credit, salaire):

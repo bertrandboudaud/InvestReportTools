@@ -1,6 +1,9 @@
-class Credit:
+from SheetOutput import SheetOutput
+
+class Credit(SheetOutput):
 
     def __init__(self, appartement, tauxCredit, tauxADI, apport, frais, dureeMois, startAnnee, startMois):
+        SheetOutput.__init__(self)
         self._appartement = appartement
         self._tauxCredit = float(tauxCredit)
         self._tauxADI = float(tauxADI)
@@ -38,6 +41,18 @@ class Credit:
         print "Duree (mois): " + str(self._dureeMois)
         print "Cout credit: " + str(self.coutCredit() + self.coutAssurance())
         print "Dont assurance: " + str(self.coutAssurance())
+
+    def sheetPrint(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, self.montant())
+        self.writeXLS(sheet, self._tauxCredit)
+        self.writeXLS(sheet, self._tauxADI)
+        self.writeXLS(sheet, self._apport)
+        self.writeXLS(sheet, self._frais)
+        self.writeXLS(sheet, self._dureeMois)
+        self.writeXLS(sheet, self.coutCredit() + self.coutAssurance())
+        self.writeXLS(sheet, self.coutAssurance())
+        return self._currentLine;
 
     def mensualitePretAmortissable(self, annee, mois):
         # Mensualite

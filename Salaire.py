@@ -1,6 +1,9 @@
-class Salaire:
+from SheetOutput import SheetOutput
+
+class Salaire(SheetOutput):
 
     def __init__(self, salaireNetMensuel, impotsMensuel, tranche):
+        SheetOutput.__init__(self)
         self._salaireNetMensuel = salaireNetMensuel
         self._impotsMensuel = impotsMensuel
         self._tranche = tranche
@@ -9,6 +12,13 @@ class Salaire:
         print "Salaire net mensuel: " + str(self._salaireNetMensuel)
         print "Impots mensuels: " + str(self._impotsMensuel)
         print "Tranche: " + str(self._tranche) + "%"
+
+    def sheetPrint(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, self._salaireNetMensuel)
+        self.writeXLS(sheet, self._impotsMensuel)
+        self.writeXLS(sheet, self._tranche)
+        return self._currentLine;
 
     def salaireNetMensuel(self, annee, mois):
         return self._salaireNetMensuel

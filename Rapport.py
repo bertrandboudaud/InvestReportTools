@@ -1,3 +1,4 @@
+# coding: utf8
 import Appartement
 import Rent
 import Credit
@@ -5,7 +6,8 @@ import Compte
 import Salaire
 import Pinel
 import VideMicroFoncier
-from xlwt import Workbook
+import xlwt
+#from xlwt import Workbook
 
 a = Appartement.Appartement(153000, 4434);
 a.debugPrint()
@@ -46,3 +48,40 @@ for annee in range(2018, 2050):
 	rapportLine += str(int(c.capitalRestantAnnee(annee))) + "\t" 
 	rapportLine += str(int(i.impotsAnnuel(annee))) + "\t" 
 	print rapportLine
+
+workbook = xlwt.Workbook(encoding="UTF-8")
+sheet = workbook.add_sheet('scenarios')
+
+print ""
+print "Annee\tCredit\tLoyer\tCharges\tBanque\tPinel\tc.cred\tCapital\tImpots"
+print "\t+Assu\t\t+TxFonc\t\t\t\trestant"
+print "----------------------------------------------------------------"
+for annee in range(2018, 2050):
+	rapportLine = str(annee) + "\t" 
+	rapportLine += str(int(c.annuitePretAmortissable(annee) + c.annuiteAssurance(annee))) + "\t" 
+	rapportLine += str(int(r.loyerBrutAnnuel(annee))) + "\t" 
+	rapportLine += str(int(r.chargesAnnuelles(annee))) + "\t" 
+	rapportLine += str(int(b.capitalMensuel(annee, 11, r, c, s))) + "\t" 
+	rapportLine += str(int(p.reductionImpotsAnnuel(annee))) + "\t" 
+	rapportLine += str(int(c.interetsEmpruntsAnnee(annee))) + "\t" 
+	rapportLine += str(int(c.capitalRestantAnnee(annee))) + "\t" 
+	rapportLine += str(int(i.impotsAnnuel(annee))) + "\t" 
+	print rapportLine
+
+
+line = 1
+line = a.sheetPrint(sheet, line, 1)
+
+line=line+1;
+line = c.sheetPrint(sheet, line, 1)
+
+line=line+1;
+line = b.sheetPrint(sheet, line, 1)
+
+line=line+1;
+line = r.sheetPrint(sheet, line, 1)
+
+line=line+1;
+line = s.sheetPrint(sheet, line, 1)
+
+workbook.save('rapport.xls')

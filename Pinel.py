@@ -1,4 +1,6 @@
-class Pinel:
+from SheetOutput import SheetOutput
+
+class Pinel(SheetOutput):
 
     TYPE_6     = 0
     TYPE_6_3   = 1
@@ -7,6 +9,7 @@ class Pinel:
     TYPE_9_3   = 4
 
     def __init__(self, type, credit, appartement):
+        SheetOutput.__init__(self)
         self._credit = credit
         self._appartement = appartement
         self._type = type
@@ -18,6 +21,11 @@ class Pinel:
 
     def debugPrint(self):
         print "Dispositif: Pinel " + str(self._typeNames[self._type])
+
+    def sheetPrint(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, self._typeNames[self._type])
+        return self._currentLine;
 
     def reductionImpotsMensuel(self, annee, mois):
         # Mensualite
