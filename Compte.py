@@ -22,6 +22,12 @@ class Compte(SheetOutput):
         self.writeXLS(sheet, self._interetAnnuel)
         return self._currentLine;
 
+    def sheetPrintHeader(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, "Capital de depart")
+        self.writeXLS(sheet, "Interets (%/an):")
+        return self._currentLine;
+
     # capital a la fin du mois
     def capitalMensuel(self, annee, mois, rent, credit, salaire):
         if (annee<self._startAnnee):

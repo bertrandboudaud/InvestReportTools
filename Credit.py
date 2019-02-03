@@ -54,6 +54,18 @@ class Credit(SheetOutput):
         self.writeXLS(sheet, self.coutAssurance())
         return self._currentLine;
 
+    def sheetPrintHeader(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, "Montant")
+        self.writeXLS(sheet, "Taux credit")
+        self.writeXLS(sheet, "Taux assurance")
+        self.writeXLS(sheet, "Apport")
+        self.writeXLS(sheet, "Frais")
+        self.writeXLS(sheet, "Duree (mois)")
+        self.writeXLS(sheet, "Cout credit")
+        self.writeXLS(sheet, "Dont assurance")
+        return self._currentLine;
+
     def mensualitePretAmortissable(self, annee, mois):
         # Mensualite
         if (annee<self._startAnnee):

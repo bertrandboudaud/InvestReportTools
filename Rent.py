@@ -25,6 +25,14 @@ class Rent(SheetOutput):
         self.writeXLS(sheet, self._taxeFonciere)
         return self._currentLine;
 
+    def sheetPrintHeader(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, "Loyer mensuel")
+        self.writeXLS(sheet, "Charges mensuelles")
+        self.writeXLS(sheet, "revalorisationCharges (%/an)")
+        self.writeXLS(sheet, "Taxe Fonciere")
+        return self._currentLine;
+
     def loyerBrutMensuel(self, annee, mois):
         # Mensualite
         if (annee<self._startAnnee):

@@ -27,6 +27,11 @@ class Pinel(SheetOutput):
         self.writeXLS(sheet, self._typeNames[self._type])
         return self._currentLine;
 
+    def sheetPrintHeader(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, "Dispositif: Pinel " + str(self._typeNames[self._type]))
+        return self._currentLine;
+
     def reductionImpotsMensuel(self, annee, mois):
         # Mensualite
         if (annee<self._credit._startAnnee):

@@ -20,6 +20,13 @@ class Salaire(SheetOutput):
         self.writeXLS(sheet, self._tranche)
         return self._currentLine;
 
+    def sheetPrintHeader(self, sheet, line, col):
+        self.startWriteXML(line, col)
+        self.writeXLS(sheet, "Salaire net mensuel")
+        self.writeXLS(sheet, "Impots mensuels")
+        self.writeXLS(sheet, "Tranche")
+        return self._currentLine;
+
     def salaireNetMensuel(self, annee, mois):
         return self._salaireNetMensuel
 
